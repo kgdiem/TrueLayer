@@ -2,6 +2,7 @@
 
 namespace TrueLayer\Data; 
 
+use \DateTime;
 use TrueLayer\Data as Model;
 use TrueLayer\Data\Bank;
 
