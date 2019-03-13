@@ -1,5 +1,5 @@
 {
-  "name": "alancole/true-layer",
+  "name": "kgdiem/true-layer-upstream",
   "description": "A simple SDK for working with TrueLayer APIs",
   "type": "library",
   "require": {
@@ -18,6 +18,10 @@
   },
   "license": "MIT",
   "authors": [
+    {
+      "name": "Kevin Diem",
+      "email": "kevin@kevindiem.com"
+    },
     {
       "name": "Alan Cole",
       "email": "alan@getchip.uk"
