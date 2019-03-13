@@ -24,10 +24,11 @@ class PendingTransactions extends Request
 
         $this->OAuthCheck($result);
         $data = json_decode($result->getBody(), true);
-        $results = array_walk($data['results'], function ($value) {
+
+        array_walk($data['results'], function ($value) {
             return new Transaction($value);
         });
 
-        return $results;
+        return $data['results'];
     }
 }

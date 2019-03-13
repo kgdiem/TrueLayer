@@ -23,10 +23,11 @@ class Accounts extends Request
 
         $this->OAuthCheck($result);
         $accounts = json_decode($result->getBody(), true);
-        $results = array_walk($accounts['results'], function ($value) {
+
+        array_walk($accounts['results'], function ($value) {
             return new Account($value);
         });
 
-        return $results;
+        return $accounts['results'];
     }
 }
