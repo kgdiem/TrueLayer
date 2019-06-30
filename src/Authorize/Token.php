@@ -4,9 +4,8 @@ namespace TrueLayer\Authorize;
 
 use DateInterval;
 use DateTime;
-use TrueLayer\Request;
 
-class Token extends Request
+class Token
 {
     /**
      * Hold the parts of our token
@@ -87,15 +86,5 @@ class Token extends Request
     public function isRefreshable()
     {
         return (bool)$this->refresh_token;
-    }
-
-    /**
-     * Revoke Token
-     *
-     * @return void
-     */
-    public function delete()
-    {
-        $this->connection->delete('/api/delete');
     }
 }

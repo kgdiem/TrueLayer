@@ -67,7 +67,8 @@ class Connection
         $state = null,
         $data_resolver = DataResolver::class,
         $provider = null
-    ) {
+    )
+    {
         $this->connection = new Client;
         $this->client_id = $client_id;
         $this->client_secret = $client_secret;
@@ -137,6 +138,17 @@ class Connection
     public function getUrl($path = "/")
     {
         return self::API_PATH . $path;
+    }
+
+    /**
+     * Get an auth path
+     *
+     * @param string $path
+     * @return string
+     */
+    public function getAuthUrl($path = "/")
+    {
+        return self::AUTH_PATH . $path;
     }
 
     /**
@@ -337,16 +349,19 @@ class Connection
      * A delete proxy which adds our token
      *
      * @param string $path
-     * @param string $params
+     * @param array $params
+     * @param bool $authUrl
      * @return mixed|\Psr\Http\Message\ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    function delete($path = "/", $params = [])
+    function delete($path = "/", $params = [], $authUrl = false)
     {
+        $url = $authUrl ? $this->getAuthUrl($path) : $this->getUrl($path);
+
         $result = $this->connection
             ->request(
                 "DELETE",
-                $this->getUrl($path),
+                $url,
                 [
                     'headers' => ((bool) $this->access_token ?
                         $this->getBearerHeader() :
