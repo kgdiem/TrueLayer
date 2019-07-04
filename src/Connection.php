@@ -297,6 +297,33 @@ class Connection
     }
 
     /**
+     * A delete proxy which adds our token
+     *
+     * @param string $path
+     * @param array $params
+     * @param bool $authUrl
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    function delete($path = "/", $params = [], $authUrl = false)
+    {
+        $url = $authUrl ? $this->getAuthUrl($path) : $this->getUrl($path);
+        $result = $this->connection
+            ->request(
+                "DELETE",
+                $url,
+                [
+                    'headers' => ((bool) $this->access_token ?
+                        $this->getBearerHeader() :
+                        []
+                    ),
+                    'query' => $params
+                ]
+            );
+        return $result;
+    }
+
+    /**
      * Set out access_token
      *
      * @param $token
