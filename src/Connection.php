@@ -126,6 +126,17 @@ class Connection
     }
 
     /**
+     * Get an auth data path
+     *
+     * @param string $path
+     * @return string
+     */
+    public function getAuthUrl($path = "/")
+    {
+        return self::AUTH_PATH . $path;
+    }
+
+    /**
      * Get a Bearer header
      *
      * @return array
