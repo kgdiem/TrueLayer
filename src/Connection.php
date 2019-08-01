@@ -197,21 +197,28 @@ class Connection
      * @return string
      * @throws \Exception
      */
-    public function getAuthorizationLink()
+    public function getAuthorizationLink(
+        $response_type = "code",
+        $enable_mock = "true",
+        $enable_oauth_providers = "true",
+        $enable_open_banking_providers = "true",
+        $enable_credentials_sharing_providers = "true",
+        $response_mode = "form_post"
+    )
     {
 
         return self::AUTH_PATH . "/" .
-            "?response_type=code" .
+            "?response_type=" . $response_type .
             "&client_id=" . $this->getClientId() .
             "&nonce=" . $this->getNonce() .
             "&scope=" . $this->getScope() .
             "&redirect_uri=" . $this->getRequestUri() .
             "&state=" . urlencode($this->getState()) .
-            "&enable_mock=true" .
-            "&enable_oauth_providers=true" .
-            "&enable_open_banking_providers=false" .
-            "&enable_credentials_sharing_providers=true" .
-            "&response_mode=form_post";
+            "&enable_mock=" . $enable_mock .
+            "&enable_oauth_providers=" . $enable_oauth_providers .
+            "&enable_open_banking_providers=" . $enable_open_banking_providers .
+            "&enable_credentials_sharing_providers=" . $enable_credentials_sharing_providers .
+            "&response_mode=" . $response_mode;
     }
 
     /**
