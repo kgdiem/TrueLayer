@@ -11,15 +11,16 @@ class Identity extends Request
     /**
      * Get all providers
      *
+     * @param array $params
      * @return mixed
      * @throws OauthTokenInvalid
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getIdentity()
+    public function getIdentity($params)
     {
         $result = $this->connection
             ->setAccessToken($this->token->getAccessToken())
-            ->get("/data/v1/info");
+            ->get("/data/v1/info", $params);
 
         $this->OAuthCheck($result);
         $data = json_decode($result->getBody(), true);

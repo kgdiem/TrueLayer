@@ -12,15 +12,16 @@ class PendingTransactions extends Request
      * Get pending transactions
      *
      * @param string $account_id
+     * @param array $params
      * @return CardTransaction|array
      * @throws OauthTokenInvalid
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function get($account_id)
+    public function get($account_id, $params = [])
     {
         $result = $this->connection
             ->setAccessToken($this->token->getAccessToken())
-            ->get("/data/v1/cards/" . $account_id . "/transactions/pending");
+            ->get("/data/v1/cards/" . $account_id . "/transactions/pending", $params);
 
         $this->OAuthCheck($result);
 

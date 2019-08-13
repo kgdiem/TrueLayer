@@ -15,17 +15,20 @@ class Transactions extends Request
      * @param string $account_id
      * @param DateTime $from
      * @param DateTime $to
+     * @param array $queryParams
      *
      * @return array|CardTransaction
      * @throws OauthTokenInvalid
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function get($account_id, DateTime $from = null, DateTime $to = null)
+    public function get($account_id, DateTime $from = null, DateTime $to = null, $queryParams = [])
     {
         $params = array_filter([
             'from' => ($from ? $from->format(DateTime::ISO8601) : null),
             'to' => ($to ? $to->format(DateTime::ISO8601) : null),
         ]);
+
+        $params = array_merge($params, $queryParams);
 
         $result = $this->connection
             ->setAccessToken($this->token->getAccessToken())

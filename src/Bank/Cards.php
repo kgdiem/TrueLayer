@@ -11,15 +11,17 @@ class Cards extends Request
     /**
      * Get all accounts
      *
+     * @param array $params
+     *
      * @return Card|array
      * @throws \GuzzleHttp\Exception\GuzzleException
      * @throws OauthTokenInvalid
      */
-    public function get()
+    public function get($params = [])
     {
         $result = $this->connection
             ->setAccessToken($this->token->getAccessToken())
-            ->get("/data/v1/cards");
+            ->get("/data/v1/cards", $params);
 
         $this->OAuthCheck($result);
         $accounts = json_decode($result->getBody(), true);
