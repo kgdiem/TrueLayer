@@ -14,7 +14,7 @@ class Me extends Request
      * @throws OauthTokenInvalid
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function getMetaData($params)
+    public function getMetaData($params = [])
     {
         $result = $this->connection
             ->setAccessToken($this->token->getAccessToken())

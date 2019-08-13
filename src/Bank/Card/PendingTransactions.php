@@ -31,10 +31,12 @@ class PendingTransactions extends Request
 
         $data = json_decode($result->getBody(), true);
 
-        array_walk($data['results'], function ($value) {
-            return new CardTransaction($value);
-        });
+        if(array_key_exists('results', $data)) {
+            array_walk($data['results'], function ($value) {
+                return new CardTransaction($value);
+            });
 
-        return $data['results'];
+            return $data['results'];
+        }
     }
 }

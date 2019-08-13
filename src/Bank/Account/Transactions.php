@@ -37,10 +37,12 @@ class Transactions extends Request
         $this->OAuthCheck($result);
         $data = json_decode($result->getBody(), true);
 
-        array_walk($data['results'], function ($value) {
-            return new Transaction($value);
-        });
+        if(array_key_exists('results', $data)) {
+            array_walk($data['results'], function ($value) {
+                return new Transaction($value);
+            });
 
-        return $data['results'];
+            return $data['results'];
+        }
     }
 }

@@ -26,6 +26,8 @@ class Balance extends Request
         $this->OAuthCheck($result);
         $data = json_decode($result->getBody(), true);
 
-        return new CardBalance($data['results']);
+        if(array_key_exists('results', $data)) {
+            return new CardBalance($data['results']);
+        }
     }
 }

@@ -27,6 +27,8 @@ class Balance extends Request
         $this->OAuthCheck($result);
         $data = json_decode($result->getBody(), true);
 
-        return new Data($data["results"]);
+        if(array_key_exists('results', $data)) {
+            return new Data($data["results"]);
+        }
     }
 }

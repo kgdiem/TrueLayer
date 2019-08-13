@@ -28,6 +28,8 @@ class Information extends Request
 
         $data = json_decode($result->getBody(), true);
 
-        return new Card($data['results']);
+        if(array_key_exists('results', $data)) {
+            return new Card($data['results']);
+        }
     }
 }
