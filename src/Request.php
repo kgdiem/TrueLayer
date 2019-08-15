@@ -60,4 +60,36 @@ class Request
             throw new OauthTokenInvalid();
         }
     }
+
+    /**
+     * @param string $url
+     * @param string $class
+     * @param bool $collection
+     * @return mixed
+     * @throws OauthTokenInvalid
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getUrl($url, $class, $collection = true)
+    {
+        $result = $this->connection
+            ->setAccessToken($this->token->getAccessToken())
+            ->getUri($url, $class);
+
+        $this->OAuthCheck($result);
+
+        $objects = json_decode($result->getBody(), true);
+
+        $hasResults = array_key_exists('results', $objects);
+
+        if($hasResults && $collection) {
+            array_walk($objects['results'], function ($value) use ($class) {
+                return new $class($value);
+            });
+
+            return $objects['results'];
+        } else {
+            return new $class($objects['results']);
+        }
+
+    }
 }

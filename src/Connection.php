@@ -315,6 +315,30 @@ class Connection
     }
 
     /**
+     * @param string $uri
+     * @param array $params
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getUri($uri, $params = [])
+    {
+        $result = $this->connection
+            ->request(
+              "GET",
+              $uri,
+              [
+                  'headers' => ((bool)$this->access_token ?
+                      $this->getBearerHeader() :
+                      []
+                  ),
+                  'query' => $params
+              ]
+            );
+
+        return $result;
+    }
+
+    /**
      * A delete proxy which adds our token
      *
      * @param string $path
